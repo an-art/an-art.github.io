@@ -1,35 +1,72 @@
-const BISCUIT_SIZE = 8;
+const BISCUIT_SIZE = 10;
 const PANDA_SIZE = 28;
+const CHERRY_SIZE = 8;
 
 const FIELD_lvl_1 = [
-    "0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0",
-    "0,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,0",
-    "0,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,3,0,1,0",
-    "0,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,1,0,1,0",
-    "0,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0",
-    "0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0",
-    "0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0",
-    "0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0",
-    "0,1,0,1,0,0,1,1,0,0,1,0,0,1,1,0,1,0,1,0",
-    "0,1,1,1,1,1,1,1,0,4,1,4,0,1,1,1,1,3,1,0",
-    "0,1,1,1,1,3,1,1,0,4,1,4,0,1,1,1,1,1,1,0",
-    "0,1,0,1,0,0,1,1,0,1,0,0,0,1,1,0,1,0,1,0",
-    "0,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0",
-    "0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0",
-    "0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0",
-    "0,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,0",
-    "0,1,0,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0",
-    "0,1,0,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0",
-    "0,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,3,1,0",
-    "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+    '0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0',
+    '0,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,0',
+    '0,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,3,0,1,0',
+    '0,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,1,0,1,0',
+    '0,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0',
+    '0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0',
+    '0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0',
+    '0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0',
+    '0,1,0,1,0,0,1,1,0,0,1,0,0,1,1,0,1,0,1,0',
+    '0,1,1,1,1,1,1,1,0,4,1,4,0,1,1,1,1,3,1,0',
+    '0,1,1,1,1,3,1,1,0,4,1,4,0,1,1,1,1,1,1,0',
+    '0,1,0,1,0,0,1,1,0,1,0,0,0,1,1,0,1,0,1,0',
+    '0,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0',
+    '0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0',
+    '0,1,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0',
+    '0,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,0',
+    '0,1,0,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0',
+    '0,1,0,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0',
+    '0,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,3,1,0',
+    '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0'
 ];
-let TYPES = ["BARRIER", "OPEN", "BISCUIT", "PANDA", "PUCMAN", "GHOST"];
+let TYPES = ["BARRIER", "BISCUIT", "OPEN", "CHERRY", "GHOST", "PUCMAN"];
 
 function Tile(x, y, type) {
     this.x = x;
     this.y = y;
     this.type = type;
-}
+
+    this.dX = -1;
+    this.dY = -1;
+    this.moving = false;
+    this.speed = 0.9;
+};
+
+Tile.prototype.update = function() {
+    if (this.moving) {
+        this.x = lerp(this.x, this.dX, this.speed);
+        this.y = lerp(this.y, this.dY, this.speed);
+        if (Math.abs(this.x - this.dX) < 1 && Math.abs(this.y - this.dY) < 1) {
+            this.x = this.dX;
+            this.y = this.dY;
+            this.moving = false;
+        }
+    }
+};
+
+Tile.prototype.move = function(x, y) {
+    let dY = this.y + y;
+    let dX = this.x + x;
+    
+    if (this.moving) {
+        return;
+    }
+
+    let destinationTile = field[dY * DIMENSIONS + dX];
+    let type = destinationTile.type;
+
+    if (type == 'BARRIER' && this.type != 'BARRIER') {
+        return;
+    }
+    this.moving = true;
+    this.dX = dX;
+    this.dY = dY;
+};
 
 Tile.prototype.draw = function() {
     switch (this.type) {
@@ -50,7 +87,18 @@ Tile.prototype.draw = function() {
             ellipse(this.x * SIZE + BISCUIT_SIZE, this.y * SIZE + BISCUIT_SIZE, BISCUIT_SIZE);
             break;
 
-        case "PANDA":
+        case 'CHERRY':
+            ellipseMode(CORNER);
+            stroke(255);
+            strokeWeight(2);
+            fill('#FF2222');
+            ellipse(this.x * SIZE + CHERRY_SIZE, this.y * SIZE + CHERRY_SIZE, PANDA_SIZE)
+            break;
+
+        case 'GHOST':
+            break;
+
+        case "PUCMAN":
             img = createImage(PANDA_SIZE, PANDA_SIZE);
             img.loadPixels();
 
@@ -449,17 +497,5 @@ Tile.prototype.draw = function() {
             image(img, this.x * SIZE + 1, this.y * SIZE + 3);
             break;
     }
-}
+};
 
-function parseTileType(t) {
-    switch (t) {
-        case '0':
-            return 'BARRIER';
-        case '1':
-            return 'BISCUIT';
-        case '2':
-            return 'OPEN';
-        case '3':
-            return 'PANDA';
-    }
-}
