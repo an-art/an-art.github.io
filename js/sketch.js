@@ -1,15 +1,15 @@
 let cnvs;
 let field = [];
 
-const SIZE = 25;
+const SIZE = 30;
 const DIMENSIONS = 20;
 
 function setup() {
     let clientWidth = document.documentElement.clientWidth;
 
-    cnvs = createCanvas(500, 500);
+    cnvs = createCanvas(600, 600);
     cnvs.style('background: url("") rgb(51, 0, 0)');
-    cnvs.position(clientWidth/2-250, 50);
+    cnvs.position(clientWidth/2-300, 50);
 
     field = generateField();
 }
