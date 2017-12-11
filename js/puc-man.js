@@ -1,5 +1,6 @@
 const PUCMAN_SIZE = 28;
 const SUSHI_SIZE = 28;
+const GHOST_SIZE = 30;
 
 const FIELD_lvl_1 = [
     '0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0',
@@ -679,6 +680,319 @@ Tile.prototype.draw = function() {
             break;
 
         case 'GHOST':
+            img = createImage(GHOST_SIZE, GHOST_SIZE);
+            img.loadPixels();
+
+            for (i = 0; i < img.width; i++) {
+                for (j = 0; j < img.height; j++) {
+                    img.set(i, j, color(0, 0, 0, 0));
+                }
+            }
+
+            img.set(13, 2, color(0, 0, 0));
+            img.set(14, 2, color(0, 0, 0));
+            img.set(15, 2, color(0, 0, 0));
+            img.set(16, 2, color(0, 0, 0));
+            img.set(13, 3, color(0, 0, 0));
+            img.set(14, 3, color(0, 0, 0));
+            img.set(15, 3, color(0, 0, 0));
+            img.set(16, 3, color(0, 0, 0));
+            img.set(11, 4, color(0, 0, 0));
+            img.set(12, 4, color(0, 0, 0));
+            img.set(13, 4, color(0, 0, 0));
+            img.set(14, 4, color(0, 0, 0));
+            img.set(15, 4, color(0, 0, 0));
+            img.set(16, 4, color(0, 0, 0));
+            img.set(17, 4, color(0, 0, 0));
+            img.set(18, 4, color(0, 0, 0));
+            img.set(10, 5, color(0, 0, 0));
+            img.set(11, 5, color(0, 0, 0));
+            img.set(12, 5, color(0, 0, 0));
+            img.set(13, 5, color(255, 226, 173));
+            img.set(14, 5, color(255, 226, 173));
+            img.set(15, 5, color(255, 226, 173));
+            img.set(16, 5, color(212, 198, 142));
+            img.set(17, 5, color(0, 0, 0));
+            img.set(18, 5, color(0, 0, 0));
+            img.set(19, 5, color(0, 0, 0));
+            img.set(10, 6, color(0, 0, 0));
+            img.set(11, 6, color(255, 226, 173));
+            img.set(12, 6, color(255, 226, 173));
+            img.set(13, 6, color(255, 226, 173));
+            img.set(14, 6, color(255, 226, 173));
+            img.set(15, 6, color(255, 226, 173));
+            img.set(16, 6, color(212, 198, 142));
+            img.set(17, 6, color(212, 198, 142));
+            img.set(18, 6, color(212, 198, 142));
+            img.set(19, 6, color(0, 0, 0));
+            img.set(10, 7, color(0, 0, 0));
+            img.set(11, 7, color(255, 226, 173));
+            img.set(12, 7, color(255, 226, 173));
+            img.set(13, 7, color(0, 0, 0));
+            img.set(14, 7, color(255, 226, 173));
+            img.set(15, 7, color(255, 226, 173));
+            img.set(16, 7, color(0, 0, 0));
+            img.set(17, 7, color(212, 198, 142));
+            img.set(18, 7, color(212, 198, 142));
+            img.set(19, 7, color(0, 0, 0));
+            img.set(10, 8, color(0, 0, 0));
+            img.set(11, 8, color(255, 226, 173));
+            img.set(12, 8, color(255, 226, 173));
+            img.set(13, 8, color(255, 226, 173));
+            img.set(14, 8, color(255, 226, 173));
+            img.set(15, 8, color(255, 226, 173));
+            img.set(16, 8, color(255, 226, 173));
+            img.set(17, 8, color(212, 198, 142));
+            img.set(18, 8, color(212, 198, 142));
+            img.set(19, 8, color(0, 0, 0));
+            img.set(10, 9, color(0, 0, 0));
+            img.set(11, 9, color(255, 226, 173));
+            img.set(12, 9, color(255, 226, 173));
+            img.set(13, 9, color(255, 226, 173));
+            img.set(14, 9, color(255, 226, 173));
+            img.set(15, 9, color(255, 226, 173));
+            img.set(16, 9, color(255, 226, 173));
+            img.set(17, 9, color(212, 198, 142));
+            img.set(18, 9, color(212, 198, 142));
+            img.set(19, 9, color(0, 0, 0));
+            for (let i = 8; i<22; i++) {
+            	img.set(i, 10, color(0, 0, 0));
+            }
+            img.set(5, 11, color(0, 0, 0));
+            img.set(6, 11, color(0, 0, 0));
+            img.set(7, 11, color(0, 0, 0));
+            img.set(8, 11, color(255, 226, 173));
+            img.set(9, 11, color(255, 226, 173));
+            img.set(10, 11, color(255, 226, 173));
+            img.set(11, 11, color(255, 226, 173));
+            img.set(12, 11, color(255, 226, 173));
+            img.set(13, 11, color(255, 226, 173));
+            img.set(14, 11, color(255, 226, 173));
+            img.set(15, 11, color(255, 226, 173));
+            img.set(16, 11, color(255, 226, 173));
+            img.set(17, 11, color(255, 226, 173));
+            img.set(18, 11, color(255, 226, 173));
+            img.set(19, 11, color(255, 226, 173));
+            img.set(20, 11, color(255, 226, 173));
+            img.set(21, 11, color(255, 226, 173));
+            img.set(22, 11, color(0, 0, 0));
+            img.set(23, 11, color(0, 0, 0));
+            img.set(24, 11, color(0, 0, 0));
+            img.set(3, 12, color(0, 0, 0));
+            img.set(4, 12, color(0, 0, 0));
+            img.set(5, 12, color(0, 0, 0));
+            img.set(24, 12, color(0, 0, 0));
+            img.set(25, 12, color(0, 0, 0));
+            img.set(26, 12, color(0, 0, 0));
+            for (let i = 6; i < 24; i++) {
+            	for (let j = 12; j < 16; j++) {
+            		img.set(i, j, color(255, 226, 173));
+            	}
+            }
+            img.set(2, 13, color(0, 0, 0));
+            img.set(3, 13, color(255, 226, 173));
+            img.set(4, 13, color(255, 226, 173));
+            img.set(5, 13, color(0, 0, 0));
+            img.set(24, 13, color(0, 0, 0));
+            img.set(25, 13, color(212, 198, 142));
+            img.set(26, 13, color(212, 198, 142));
+            img.set(27, 13, color(0, 0, 0));
+            img.set(1, 14, color(0, 0, 0));
+            img.set(2, 14, color(255, 226, 173));
+            img.set(3, 14, color(255, 226, 173));
+            img.set(4, 14, color(0, 0, 0));
+            img.set(5, 14, color(255, 226, 173));
+            img.set(24, 14, color(255, 226, 173));
+            img.set(25, 14, color(0, 0, 0));
+            img.set(26, 14, color(212, 198, 142));
+            img.set(27, 14, color(212, 198, 142));
+            img.set(28, 14, color(0, 0, 0));
+            img.set(1, 15, color(0, 0, 0));
+            img.set(2, 15, color(255, 226, 173));
+            img.set(3, 15, color(255, 226, 173));
+            img.set(4, 15, color(0, 0, 0));
+            img.set(5, 15, color(255, 226, 173));
+            img.set(24, 15, color(255, 226, 173));
+            img.set(25, 15, color(0, 0, 0));
+            img.set(26, 15, color(212, 198, 142));
+            img.set(27, 15, color(212, 198, 142));
+            img.set(28, 15, color(0, 0, 0));
+            img.set(1, 16, color(0, 0, 0));
+            img.set(2, 16, color(255, 226, 173));
+            img.set(3, 16, color(0, 0, 0));
+            img.set(4, 16, color(0, 0, 0));
+            img.set(5, 16, color(255, 226, 173));
+			for (let i = 6; i < 24; i++) {
+	            img.set(i, 16, color(0, 0, 0));
+	         }
+            img.set(24, 16, color(255, 226, 173));
+            img.set(25, 16, color(0, 0, 0));
+            img.set(26, 16, color(0, 0, 0));
+            img.set(27, 16, color(212, 198, 142));
+            img.set(28, 16, color(0, 0, 0));
+            img.set(1, 17, color(0, 0, 0));
+            img.set(2, 17, color(255, 226, 173));
+            img.set(3, 17, color(0, 0, 0));
+            img.set(4, 17, color(255, 226, 173));
+            img.set(5, 17, color(255, 226, 173));
+            for (let i = 6; i < 24; i++) {
+            	img.set(i, 17, color(212, 198, 142));
+            }
+            img.set(24, 17, color(255, 226, 173));
+            img.set(25, 17, color(255, 226, 173));
+            img.set(26, 17, color(0, 0, 0));
+            img.set(27, 17, color(212, 198, 142));
+            img.set(28, 17, color(0, 0, 0));
+            img.set(1, 18, color(0, 0, 0));
+            img.set(2, 18, color(255, 226, 173));
+            img.set(3, 18, color(0, 0, 0));
+            img.set(4, 18, color(255, 226, 173));
+            img.set(5, 18, color(255, 226, 173));
+            img.set(24, 18, color(255, 226, 173));
+            img.set(25, 18, color(255, 226, 173));
+            img.set(26, 18, color(0, 0, 0));
+            img.set(27, 18, color(212, 198, 142));
+            img.set(28, 18, color(0, 0, 0));
+            img.set(1, 19, color(0, 0, 0));
+            img.set(2, 19, color(0, 0, 0));
+            img.set(3, 19, color(0, 0, 0));
+            img.set(4, 19, color(255, 226, 173));
+            img.set(5, 19, color(255, 226, 173));
+            img.set(24, 19, color(255, 226, 173));
+            img.set(25, 19, color(255, 226, 173));
+            img.set(26, 19, color(0, 0, 0));
+            img.set(27, 19, color(0, 0, 0));
+            img.set(28, 19, color(0, 0, 0));
+            for (let i = 6; i < 24; i++) {
+            	for (let j = 18; j < 20; j++) {
+            		img.set(i, j, color(255, 226, 173));
+            	}
+            }
+            for (let i = 3; i < 27; i++) {
+            	img.set(i, 20, color(0, 0, 0));
+            }
+            img.set(3, 21, color(0, 0, 0));
+            img.set(3, 22, color(0, 0, 0));
+            img.set(26, 21, color(0, 0, 0));
+            img.set(26, 22, color(0, 0, 0));
+            for (let i = 4; i < 26; i++) {
+            	for (let j = 21; j < 23; j++) {
+            		img.set(i, j, color(140, 28, 28));
+            	}
+            }
+            img.set(3, 23, color(0, 0, 0));
+            img.set(4, 23, color(0, 0, 0));
+            img.set(5, 23, color(0, 0, 0));
+            img.set(6, 23, color(0, 0, 0));
+            img.set(7, 23, color(0, 0, 0));
+            img.set(8, 23, color(0, 0, 0));
+            img.set(9, 23, color(0, 0, 0));
+            img.set(10, 23, color(0, 0, 0));
+            img.set(11, 23, color(140, 28, 28));
+            img.set(12, 23, color(140, 28, 28));
+            img.set(13, 23, color(140, 28, 28));
+            img.set(14, 23, color(140, 28, 28));
+            img.set(15, 23, color(140, 28, 28));
+            img.set(16, 23, color(140, 28, 28));
+            img.set(17, 23, color(140, 28, 28));
+            img.set(18, 23, color(140, 28, 28));
+            img.set(19, 23, color(0, 0, 0));
+            img.set(20, 23, color(0, 0, 0));
+            img.set(21, 23, color(0, 0, 0));
+            img.set(22, 23, color(0, 0, 0));
+            img.set(23, 23, color(0, 0, 0));
+            img.set(24, 23, color(0, 0, 0));
+            img.set(25, 23, color(0, 0, 0));
+            img.set(26, 23, color(0, 0, 0));
+            img.set(4, 24, color(0, 0, 0));
+            img.set(5, 24, color(255, 226, 173));
+            img.set(6, 24, color(255, 226, 173));
+            img.set(7, 24, color(255, 226, 173));
+            img.set(8, 24, color(255, 226, 173));
+            img.set(9, 24, color(255, 226, 173));
+            img.set(10, 24, color(0, 0, 0));
+            img.set(11, 24, color(0, 0, 0));
+            img.set(12, 24, color(140, 28, 28));
+            img.set(13, 24, color(140, 28, 28));
+            img.set(14, 24, color(140, 28, 28));
+            img.set(15, 24, color(140, 28, 28));
+            img.set(16, 24, color(140, 28, 28));
+            img.set(17, 24, color(140, 28, 28));
+            img.set(18, 24, color(0, 0, 0));
+            img.set(19, 24, color(0, 0, 0));
+            img.set(20, 24, color(255, 226, 173));
+            img.set(21, 24, color(255, 226, 173));
+            img.set(22, 24, color(255, 226, 173));
+            img.set(23, 24, color(255, 226, 173));
+            img.set(24, 24, color(212, 198, 142));
+            img.set(25, 24, color(0, 0, 0));
+            img.set(4, 25, color(0, 0, 0));
+            img.set(5, 25, color(255, 226, 173));
+            img.set(6, 25, color(255, 226, 173));
+            img.set(7, 25, color(255, 226, 173));
+            img.set(8, 25, color(255, 226, 173));
+            img.set(9, 25, color(255, 226, 173));
+            img.set(10, 25, color(212, 198, 142));
+            img.set(11, 25, color(0, 0, 0));
+            img.set(12, 25, color(0, 0, 0));
+            img.set(13, 25, color(0, 0, 0));
+            img.set(14, 25, color(0, 0, 0));
+            img.set(15, 25, color(0, 0, 0));
+            img.set(16, 25, color(0, 0, 0));
+            img.set(17, 25, color(0, 0, 0));
+            img.set(18, 25, color(0, 0, 0));
+            img.set(19, 25, color(255, 226, 173));
+            img.set(20, 25, color(255, 226, 173));
+            img.set(21, 25, color(255, 226, 173));
+            img.set(22, 25, color(255, 226, 173));
+            img.set(23, 25, color(255, 226, 173));
+            img.set(24, 25, color(212, 198, 142));
+            img.set(25, 25, color(0, 0, 0));
+            img.set(4, 26, color(0, 0, 0));
+            img.set(5, 26, color(255, 226, 173));
+            img.set(6, 26, color(255, 226, 173));
+            img.set(7, 26, color(255, 226, 173));
+            img.set(8, 26, color(255, 226, 173));
+            img.set(9, 26, color(255, 226, 173));
+            img.set(10, 26, color(212, 198, 142));
+            img.set(11, 26, color(0, 0, 0));
+            img.set(18, 26, color(0, 0, 0));
+            img.set(19, 26, color(255, 226, 173));
+            img.set(20, 26, color(255, 226, 173));
+            img.set(21, 26, color(255, 226, 173));
+            img.set(22, 26, color(255, 226, 173));
+            img.set(23, 26, color(255, 226, 173));
+            img.set(24, 26, color(212, 198, 142));
+            img.set(25, 26, color(0, 0, 0));
+            img.set(4, 27, color(0, 0, 0));
+            img.set(5, 27, color(0, 0, 0));
+            img.set(6, 27, color(255, 226, 173));
+            img.set(7, 27, color(255, 226, 173));
+            img.set(8, 27, color(255, 226, 173));
+            img.set(9, 27, color(0, 0, 0));
+            img.set(10, 27, color(0, 0, 0));
+            img.set(11, 27, color(0, 0, 0));
+            img.set(18, 27, color(0, 0, 0));
+            img.set(19, 27, color(0, 0, 0));
+            img.set(20, 27, color(0, 0, 0));
+            img.set(21, 27, color(255, 226, 173));
+            img.set(22, 27, color(255, 226, 173));
+            img.set(23, 27, color(255, 226, 173));
+            img.set(24, 27, color(0, 0, 0));
+            img.set(25, 27, color(0, 0, 0));
+            img.set(5, 28, color(0, 0, 0));
+            img.set(6, 28, color(0, 0, 0));
+            img.set(7, 28, color(0, 0, 0));
+            img.set(8, 28, color(0, 0, 0));
+            img.set(9, 28, color(0, 0, 0));
+            img.set(20, 28, color(0, 0, 0));
+            img.set(21, 28, color(0, 0, 0));
+            img.set(22, 28, color(0, 0, 0));
+            img.set(23, 28, color(0, 0, 0));
+            img.set(24, 28, color(0, 0, 0));
+
+            img.updatePixels();
+            image(img, this.x * SIZE, this.y * SIZE);
             break;
 
         case "PUCMAN":
