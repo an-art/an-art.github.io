@@ -33,14 +33,14 @@ function Tile(x, y, type) {
     this.dX = -1;
     this.dY = -1;
     this.moving = false;
-    this.speed = 0.9;
+    this.speed = 0.3;
 };
 
 Tile.prototype.update = function() {
     if (this.moving) {
         this.x = lerp(this.x, this.dX, this.speed);
         this.y = lerp(this.y, this.dY, this.speed);
-        if (Math.abs(this.x - this.dX) < 1 && Math.abs(this.y - this.dY) < 1) {
+        if (Math.abs(this.x - this.dX) < 0.1 && Math.abs(this.y - this.dY) < 0.1) {
             this.x = this.dX;
             this.y = this.dY;
             this.moving = false;

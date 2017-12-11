@@ -9,14 +9,13 @@ function setup() {
     let clientWidth = document.documentElement.clientWidth;
 
     cnvs = createCanvas(600, 600);
-    cnvs.style('background: url("") rgb(51, 0, 0)');
-    cnvs.position(clientWidth/2-300, 50);
-
     field = generateField();
     
 };
 
 function draw() {
+    background(51);
+
     for (let i = 0; i < field.length; i++) {    
         field[i].draw();
         field[i].update();
