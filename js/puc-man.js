@@ -1,6 +1,6 @@
 const PUCMAN_SIZE = 28;
 const SUSHI_SIZE = 28;
-const GHOST_SIZE = 30;
+const SUMO_SIZE = 30;
 
 const FIELD_lvl_1 = [
     '0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0',
@@ -24,7 +24,7 @@ const FIELD_lvl_1 = [
     '0,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,3,1,0',
     '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0'
 ];
-let TYPES = ["BARRIER", "RICE", "OPEN", "SUSHI", "GHOST", "PUCMAN"];
+let TYPES = ["BARRIER", "RICE", "OPEN", "SUSHI", "SUMO", "PUCMAN"];
 
 function Tile(x, y, type) {
     this.x = x;
@@ -34,10 +34,15 @@ function Tile(x, y, type) {
     this.dX = -1;
     this.dY = -1;
     this.moving = false;
-    this.speed = 0.3;
+    this.speed = 0.5;
+    this.intact = true;
 };
 
 Tile.prototype.update = function() {
+
+	if (!this.intact)
+		return;
+
     if (this.moving) {
         this.x = lerp(this.x, this.dX, this.speed);
         this.y = lerp(this.y, this.dY, this.speed);
@@ -47,6 +52,33 @@ Tile.prototype.update = function() {
             this.moving = false;
         }
     }
+
+   if (this.type != "PUCMAN") {
+    	
+	    let dTileX = Math.floor(this.x);
+	    let dTileY = Math.floor(this.y);
+
+	    let dTile = getTile(dTileX, dTileY);
+
+	    if (dTile.intact) {
+	    	switch(dTile.type) {
+		    	case 'RICE':
+		    		score++;
+		    		dTile.intact = false;
+		    		break;
+		    	case 'SUSHI':
+		    		score+=10;
+		    		dTile.intact = false;
+		    		break;
+		    	case 'SUMO':
+		    		endGame(false);
+		    		break;
+	    	}
+	    } 
+	}
+	   else if (this.type == 'SUMO') {
+
+		}
 };
 
 Tile.prototype.move = function(x, y) {
@@ -57,23 +89,29 @@ Tile.prototype.move = function(x, y) {
         return;
     }
 
-    let destinationTile = field[dY * DIMENSIONS + dX];
+    let destinationTile = getTile(dX, dY);
     let type = destinationTile.type;
 
-    if (type == 'BARRIER' && this.type != 'BARRIER') {
+    if ((type == 'BARRIER' && this.type != 'BARRIER') ||
+    	(type == 'SUMO' && this.type == 'SUMO')) {
         return;
     }
+
     this.moving = true;
     this.dX = dX;
     this.dY = dY;
 };
+
+function getTile(x, y) {
+	return field[y * DIMENSIONS + x];
+}
 
 Tile.prototype.draw = function() {
     switch (this.type) {
         case "BARRIER":
             strokeWeight(3);
             stroke(0);
-            fill("#0000FF");
+            fill("#3caa3c"); // Цвет влюблённой жабы 
             rect(this.x * SIZE, this.y * SIZE, SIZE, SIZE);
             break;
 
@@ -84,9 +122,8 @@ Tile.prototype.draw = function() {
             ellipseMode(CORNER);
             stroke('#e8cf8f');
 			smooth();
-			//rotate(2);
 			fill('#f3ead3');
-            ellipse(this.x * SIZE + 7, this.y * SIZE + 13, 10, 1);
+            ellipse(this.x * SIZE + 10, this.y * SIZE + 14, 10, 1);
             break;
 
         case 'SUSHI':
@@ -679,8 +716,8 @@ Tile.prototype.draw = function() {
             image(img, this.x * SIZE + 1, this.y * SIZE + 3);
             break;
 
-        case 'GHOST':
-            img = createImage(GHOST_SIZE, GHOST_SIZE);
+        case 'SUMO':
+            img = createImage(SUMO_SIZE, SUMO_SIZE);
             img.loadPixels();
 
             for (i = 0; i < img.width; i++) {
