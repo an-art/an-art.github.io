@@ -2,6 +2,7 @@ let cnvs;
 let field = [];
 let pucman;
 let score;
+let endScore;
 let sumos = [];
 
 const SIZE = 30;
@@ -12,6 +13,7 @@ function setup() {
 
     cnvs = createCanvas(600, 635);
     score = 0;
+	endScore = 0;
     field = generateField();
     
 };
@@ -20,25 +22,22 @@ function draw() {
     background("#734222");
 
     for (let i = 0; i < field.length; i++) {    
-        if (field[i].intact) {
-            
+        if (field[i].intact) {            
             field[i].update();
             field[i].draw();
         }
     }
 
-    pucman.update();
-    pucman.draw();
-
     for (let j = 0; j < sumos.length; j++) {
         sumos[j].update();
-        sumos[j].draw();
     }
+
+    pucman.update();
 
     noStroke();
     fill(255);
     textSize(30);
-    text(score, 5, height-5);
+    text(score, 15, height-5);
 
     handlePucman();
     handleSumo();
@@ -52,13 +51,25 @@ function generateField() {
         for (let j = 0; j < row.length; j++) {
             let type = TYPES[row[j]];
             let t = new Tile(j, i, type);
-            if (type == 'PUCMAN') {
-                pucman = t;
-            } else if (type == 'SUMO') {
-                sumos.push(t);
-            } else {
-                f.push(t);
+
+            switch(type) {
+            	case 'PUCMAN':
+	            	pucman = t;
+	            	break;
+
+            	case 'SUMO':
+	            	sumos.push(t);
+	            	break;
+
+            	case 'SUSHI':
+            		endScore += 10;
+            		break;
+
+            	case 'RICE':
+            		endScore++;
+            		break;
             }
+            f.push(t);
         }
     }
     return f;
@@ -68,11 +79,11 @@ function handlePucman() {
     if (keyIsDown(UP_ARROW)) {
         pucman.move(0, -1);
     } else if (keyIsDown(DOWN_ARROW)) {
-        pucman.move(0, 1);
+        pucman.move(0, 1, true);
     } else if (keyIsDown(LEFT_ARROW)) {
         pucman.move(-1, 0);
     } else if (keyIsDown(RIGHT_ARROW)) {
-        pucman.move(1, 0);
+        pucman.move(1, 0, true);
     }
 };
 

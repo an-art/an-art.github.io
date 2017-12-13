@@ -3,7 +3,7 @@ const SUSHI_SIZE = 28;
 const SUMO_SIZE = 30;
 
 const FIELD_lvl_1 = [
-    '0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0',
+    '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0',
     '0,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,0',
     '0,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,3,0,1,0',
     '0,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,1,0,1,0',
@@ -53,10 +53,11 @@ Tile.prototype.update = function() {
         }
     }
 
-   if (this.type != "PUCMAN") {
+   if (this.type == "PUCMAN") {
     	
 	    let dTileX = Math.floor(this.x);
 	    let dTileY = Math.floor(this.y);
+
 
 	    let dTile = getTile(dTileX, dTileY);
 
@@ -75,18 +76,44 @@ Tile.prototype.update = function() {
 		    		break;
 	    	}
 	    } 
+        if (score == endScore) endGame(true);
 	}
 	   else if (this.type == 'SUMO') {
+            if (this.moving) return;
 
+            let possibleMoves = [
+                getTile(this.x - 1, this.y),
+                getTile(this.x + 1, this.y),
+                getTile(this.x, this.y - 1),
+                getTile(this.x, this.y + 1),
+            ];
+
+            possibleMoves.sort(function (a, b) {
+                let aD = dist(a.x, a.y, pucman.x, pucman.y);
+                let bD = dist(b.x, b.y, pucman.x, pucman.y);
+                return aD - bD;
+            });
+            for (let i = 0; i < possibleMoves.length; i++) {
+                if (this.move(possibleMoves[i].x, possibleMoves[i].y, false))
+                    break;
+            }
 		}
 };
 
-Tile.prototype.move = function(x, y) {
-    let dY = this.y + y;
-    let dX = this.x + x;
-    
+Tile.prototype.move = function(x, y, relative) {
+    let dY;
+    let dX;
+
+    if (relative) {
+        dY = this.y + y;
+        dX = this.x + x;
+    } else {
+        dY = y;
+        dX = x;
+    }
+        
     if (this.moving) {
-        return;
+        return false;
     }
 
     let destinationTile = getTile(dX, dY);
@@ -94,12 +121,13 @@ Tile.prototype.move = function(x, y) {
 
     if ((type == 'BARRIER' && this.type != 'BARRIER') ||
     	(type == 'SUMO' && this.type == 'SUMO')) {
-        return;
+        return false;
     }
 
     this.moving = true;
     this.dX = dX;
     this.dY = dY;
+    return true;
 };
 
 function getTile(x, y) {
