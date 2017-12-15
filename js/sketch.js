@@ -10,21 +10,20 @@ const SIZE = 30;
 const DIMENSIONS = 20;
 
 function setup() {
-    let clientWidth = document.documentElement.clientWidth;
-
     cnvs = createCanvas(600, 635);
     score = 0;
 	endScore = 0;
     field = generateField();
     
-};
+}
 
 function draw() {
+
     background("#734222");
 
     for (let i = 0; i < field.length; i++) {    
         if (field[i].intact) {            
-            if (field[i].type != 'SUMO' && field[i].type != 'PUCMAN') {
+            if (field[i].type !== 'SUMO' && field[i].type !== 'PUCMAN') {
             	field[i].draw();
             }
         }
@@ -41,10 +40,10 @@ function draw() {
     noStroke();
     fill(255);
     textSize(30);
-    text(score, 15, height-5);
+    text(score, 50, height-5);
 
     handlePucman();
-};
+}
 
 function generateField() {
     let f = [];
@@ -59,8 +58,8 @@ function generateField() {
             switch(type) {
             	case 'PUCMAN':
 	            	pucman = t;
-	            	f.push(new Tile(j, i, 'OPEN'))
-	            	break;
+	            	f.push(new Tile(j, i, 'OPEN'));
+                    break;
 
             	case 'SUMO':
 	            	sumos.push(new Tile(j, i, type, sId % 2));
@@ -90,7 +89,7 @@ function generateField() {
         }
     }
     return f;
-};
+}
 
 function handlePucman() {
     if (keyIsDown(UP_ARROW)) {
@@ -102,8 +101,7 @@ function handlePucman() {
     } else if (keyIsDown(RIGHT_ARROW)) {
         pucman.move(1, 0, true);
     }
-};
-
+}
 
 function endGame(won) {
     textSize(60);

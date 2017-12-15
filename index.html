@@ -6,6 +6,34 @@
         <script type="text/javascript" src="js/sketch.js"></script>
         <script type="text/javascript" src="js/puc-man.js"></script>
         <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
+        <style type="text/css">
+
+        	body {
+        		background-color: #734222; 
+        		padding: 50px;
+        	} 
+	        .rules {
+	        	float: right; 
+	        	background-color: rgba(0, 0, 0, 0.5); 
+	        	border: 2px solid black; 
+	        	color: white; 
+	        	padding: 20px; 
+	        	font-size: 20px;
+	        }        	
+        </style>
     </head>
-    <body></body>
+    <body>
+    	<div class="rules">
+			<h2>How to play</h2>
+    		<p>Arrow keys to move Pucman (up/down/left/right). <br>Don't bump into sumo. Simply score as many points as you can eating the small rices all around the maze.<br> 1 point per rice (201 of them). <br>Big points come when you eat 1 of the 8 Sushi worth 10 points located in different parts of the maze.<br> You can gather a possible 281 points to win the game.<p>
+    	</div>
+    </body>
+    <script type="text/javascript">
+    	(function(){
+    		let widthCl = document.documentElement.clientWidth;
+    		console.log(widthCl);
+    		let div = document.querySelector('.rules');
+    		div.style = 'width: ' + (widthCl - 800) + 'px';
+    	})();
+    </script>
 </html>

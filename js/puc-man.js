@@ -38,7 +38,7 @@ function Tile(x, y, type, id) {
     this.speed = 0.5;
     this.intact = true;
     this.id = id;
-};
+}
 
 Tile.prototype.update = function() {
 
@@ -55,7 +55,7 @@ Tile.prototype.update = function() {
         }
     }
 
-   if (this.type == "PUCMAN") {
+   if (this.type === "PUCMAN") {
     	
 	    let dTileX = Math.floor(this.x);
 	    let dTileY = Math.floor(this.y);
@@ -76,9 +76,9 @@ Tile.prototype.update = function() {
 
 	    	}
 	    } 
-        if (score == endScore) endGame(true);
+        if (score === endScore) endGame(true);
 	}
-	   else if (this.type == 'SUMO') {
+	   else if (this.type === 'SUMO') {
 
             if(Math.abs(pucman.x - this.x) < 0.3 && Math.abs(pucman.y - this.y) < 0.3) {
                 if (lives.length) { 
@@ -112,7 +112,7 @@ Tile.prototype.update = function() {
                     }
                 }
             } else {
-                var index = Math.floor(random(4));
+                let index = Math.floor(random(4));
                 this.move(possibleMoves[index].x, possibleMoves[index].y, false);
             }
            
@@ -138,8 +138,8 @@ Tile.prototype.move = function(x, y, relative) {
     let destinationTile = getTile(dX, dY);
     let type = destinationTile.type;
 
-    if ((type == 'BARRIER' && this.type != 'BARRIER') ||
-    	(type == 'SUMO' && this.type == 'SUMO')) {
+    if ((type === 'BARRIER' && this.type !== 'BARRIER') ||
+    	(type === 'SUMO' && this.type === 'SUMO')) {
         return false;
     }
 
@@ -1083,14 +1083,14 @@ Tile.prototype.draw = function() {
             img = createImage(PUCMAN_SIZE, PUCMAN_SIZE);
             img.loadPixels();
 
-            for (i = 0; i < img.width; i++) {
-                for (j = 0; j < img.height; j++) {
+            for (let i = 0; i < img.width; i++) {
+                for (let j = 0; j < img.height; j++) {
                   img.set(i, j, color(0, 0, 0, 0));
                 }
               }
 
-              for (i = 2; i < img.width-2; i++) {
-                for (j = 6; j < img.height-4; j++) {
+              for (let i = 2; i < img.width-2; i++) {
+                for (let j = 6; j < img.height-4; j++) {
                   img.set(i, j, color(255, 255, 255));
                 }
               }
@@ -1479,14 +1479,14 @@ Tile.prototype.draw = function() {
             img = createImage(PUCMAN_SIZE, PUCMAN_SIZE);
             img.loadPixels();
 
-            for (i = 0; i < img.width; i++) {
-                for (j = 0; j < img.height; j++) {
+            for (let i = 0; i < img.width; i++) {
+                for (let j = 0; j < img.height; j++) {
                   img.set(i, j, color(0, 0, 0, 0));
                 }
               }
 
-              for (i = 2; i < img.width-2; i++) {
-                for (j = 6; j < img.height-4; j++) {
+              for (let i = 2; i < img.width-2; i++) {
+                for (let j = 6; j < img.height-4; j++) {
                   img.set(i, j, color(255, 255, 255));
                 }
               }
