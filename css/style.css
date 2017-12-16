@@ -1,0 +1,184 @@
+* {
+	margin: 0;
+	padding: 0;	
+}
+
+body {
+	font-family: 'Lato', sans-serif;
+	background: #fff;
+}
+
+body a {
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+}
+
+.designed-list {
+	list-style-image: url(../images/panda.png);
+	font-size: 18px;
+}
+
+.header {
+	background:url(../images/22.jpg) no-repeat 0px 0px;
+	background-size:cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	min-height:650px;
+	position:relative;
+}
+
+.logo {
+	position:absolute;
+	left: 39%;
+	top: 39%;
+}
+
+.top-menu {
+	background:#fff;
+}
+
+.top-menu h4 {
+	font-family: 'Raleway', sans-serif;
+	color:#364356;
+	float:left;
+	font-weight:900;
+	margin: 14px 0 0 0;
+}
+
+.top-menu ul {
+	float:right;
+	margin-bottom:0;
+}
+
+.top-menu ul li {
+	display:inline-block;
+}
+
+.top-menu ul li a {
+	text-decoration: none;
+	color: #364356;
+	margin:0 1.5em;
+	font-size: 0.9em;
+	padding: 1em;
+	display: block;
+	font-weight: 600;
+}
+
+.top-menu ul li a:hover {
+	color:#FF6D6B;
+}
+
+.description {
+	background:#F6F5F7;
+	padding:3% 0;
+	position:relative;
+}
+
+.description h3 {
+	color:#364356;
+	text-align:center;
+	letter-spacing:1px;
+	word-spacing:2px;
+	position:relative;
+	margin:0;
+}
+
+.description b {
+	display:block;
+	background:#E9E7E7;
+	min-height:1px;
+	width:11%;
+	position:absolute;
+	left: 45%;
+	bottom: 75%
+}
+
+.description-game {
+	margin-top:7%;
+}
+
+.description-info h4, .description-technology h4 {
+	color:#364356;
+	font-weight:600;
+	margin:0;
+	letter-spacing:1px;
+}
+
+.description-info label, .description-technology label {
+	display:block;
+	background:#E9E7E7;
+	min-height:1px;
+	width:40%;
+	margin: 8px 0 11px 0;
+}
+
+.description-info p {
+	font-size:0.85em;
+	color:#BBBABB;
+	line-height:1.8em;
+	width: 70%;
+}
+
+.technology-1, .technology-2, .technology-3 {
+	background:#F9FAFB;
+	width: 66%;
+	height: 29px;
+}
+
+.technology-bar, .technology-bar2, .technology-bar3 {
+	float:left;
+	border-top: 30px solid #FF6D6B;
+	border-right: 10px solid transparent;
+	width: 50%;
+	position:relative;
+}
+
+.text {
+	position:absolute;
+	top:-23;
+	bottom:0;
+	width: 100%;
+}
+
+.technology-2 {
+	margin: 15px 0;
+}
+
+.text p {
+	float:left;
+	color:#fff;
+	font-size:0.85em;
+	margin:0px 10px;
+}
+
+.icon {
+	float:right;
+}
+
+.load a {
+	display:inline-block;
+	background:#fff;
+	border:1px solid #EFEFEF;
+	color:#D2D2D2;
+	outline:none;
+	border-bottom:5px solid #F6F5F7;
+	padding: 0.7em 0em;
+	width: 11%;
+	font-size: 13px;
+	margin: 30px auto;
+	font-size:13px;
+	border-radius:5px;
+		-webkit-border-radius:5px;
+		-moz-border-radius:5px;
+		-o-border-radius:5px;
+		-ms-border-radius:5px;
+}
+
+.load a:hover {
+	color:#364356;
+	text-decoration:none;
+}
